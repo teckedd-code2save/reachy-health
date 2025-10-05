@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { VoiceRecognitionService } from '../services/voice-recognition.service';
+import { AudioRecordingService } from '../services/audio-recording.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-voice-input',
@@ -8,29 +11,57 @@ import { CommonModule } from '@angular/common';
   templateUrl: './voice-input.component.html',
   styleUrl: './voice-input.component.css'
 })
-export class VoiceInputComponent {
+export class VoiceInputComponent implements OnInit, OnDestroy {
   @Input() language = 'en';
   @Output() transcription = new EventEmitter<string>();
+  @Output() audioRecorded = new EventEmitter<Blob>();
   
   isListening = false;
   transcript = '';
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    private voiceRecognition: VoiceRecognitionService,
+    private audioRecording: AudioRecordingService
+  ) {}
+
+  ngOnInit() {
+    this.subscriptions.push(
+      this.voiceRecognition.transcript$.subscribe(text => {
+        this.transcript = text;
+      }),
+      this.voiceRecognition.isListening$.subscribe(listening => {
+        this.isListening = listening;
+      }),
+      this.audioRecording.audioBlob$.subscribe(blob => {
+        this.audioRecorded.emit(blob);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.stopRecording();
+  }
 
   toggleListening() {
-    this.isListening = !this.isListening;
     if (this.isListening) {
-      this.startRecording();
-    } else {
       this.stopRecording();
+    } else {
+      this.startRecording();
     }
   }
 
   private startRecording() {
-    // TODO: Implement Web Speech API or AWS Transcribe
-    console.log('Recording started in', this.language);
+    this.voiceRecognition.start(this.language);
+    this.audioRecording.startRecording();
   }
 
   private stopRecording() {
-    console.log('Recording stopped');
-    this.transcription.emit(this.transcript);
+    this.voiceRecognition.stop();
+    this.audioRecording.stopRecording();
+    if (this.transcript) {
+      this.transcription.emit(this.transcript);
+    }
   }
 }

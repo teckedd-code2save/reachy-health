@@ -17,7 +17,8 @@
       <div class="mb-8">
         <app-voice-input
           [language]="language"
-          (transcription)="onTranscription($event)">
+          (transcription)="onTranscription($event)"
+          (audioRecorded)="onAudioRecorded($event)">
         </app-voice-input>
       </div>
 
@@ -31,8 +32,9 @@
 
         <button
           (click)="submitConsultation()"
-          class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-          Submit to Doctor
+          [disabled]="submitting"
+          class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-gray-400">
+          {{ submitting ? 'Submitting...' : 'Submit to Doctor' }}
         </button>
       }
 
