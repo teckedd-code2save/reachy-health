@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-
-import { GhanaHealthPlatformComponent } from './ghana-health-platform.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [GhanaHealthPlatformComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
