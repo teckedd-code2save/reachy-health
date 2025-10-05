@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { VoiceInputComponent } from '../../components/voice-input.component';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-patient-consultation',
@@ -16,6 +17,7 @@ export class PatientConsultationPage {
   language = 'en';
   audioBlob: Blob | null = null;
   submitting = false;
+  private apiUrl = environment.apiUrl;
 
   constructor(
     public router: Router,
@@ -39,7 +41,7 @@ export class PatientConsultationPage {
     formData.append('language', this.language);
     formData.append('audio', this.audioBlob, 'consultation.webm');
 
-    this.http.post('/api/v1/consultations', formData).subscribe({
+    this.http.post(`${this.apiUrl}/consultations`, formData).subscribe({
       next: () => {
         this.router.navigate(['/patient/dashboard']);
       },
