@@ -10,7 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './patient-dashboard.page.css'
 })
 export class PatientDashboardPage {
+  sidebarOpen = false;
+  activeTab: 'reminders' | 'chats' = 'reminders';
+
   constructor(private router: Router) {}
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 
   navigateTo(route: string) {
     this.router.navigate([`/patient/${route}`]);
