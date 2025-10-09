@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './patient-dashboard.page.html',
-  styleUrl: './patient-dashboard.page.css'
+  styleUrl: './patient-dashboard.page.css',
 })
 export class PatientDashboardPage {
   sidebarOpen = false;

@@ -1,25 +1,56 @@
-<div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-  <div class="max-w-4xl w-full">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-bold text-gray-900 mb-4">HealthyAI</h1>
-      <p class="text-xl text-gray-600">Voice-Enabled Healthcare Platform</p>
+<div
+  class="min-h-screen w-full bg-gradient-to-br from-green-50 to-blue-50 p-4 flex flex-col justify-between items-center"
+>
+  <!-- Header -->
+  <header
+    class="shadow-sm flex justify-between items-center rounded-lg shadow-2xl p-5 w-full max-w-6xl mx-auto bg-white/70 backdrop-blur-md"
+  >
+    <h1 class="text-3xl md:text-4xl roboto text-blue-600">Reachy AI</h1>
+
+    <!-- Language Switcher -->
+    <div class="flex items-center gap-2">
+      <select
+        id="language"
+        (change)="onLanguageChange($event)"
+        class="border-2 border-gray-300 rounded-xl px-4 py-2 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 focus:outline-none transition appearance-none cursor-pointer shadow-sm hover:border-gray-400"
+      >
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="tw">Twi</option>
+        <option value="ha">Hausa</option>
+      </select>
+    </div>
+  </header>
+  <!-- Header End -->
+
+  <!-- Main Content -->
+  <div class="max-w-4xl w-full items-center justify-center p-4 flex flex-col flex-grow">
+    <div class="text-center mb-12 w-4/5 md:w-2/3 mx-auto">
+      <p class="text-xl md:text-4xl text-gray-600">
+        Seek Medical Help In Your Local Language
+        <span class="underline decoration-sky-500 font-medium">With</span>
+      </p>
+      <p class="text-xl md:text-3xl text-blue-600">
+        Our Voice-Enabled Healthcare Platform
+      </p>
     </div>
 
-    <!-- Language Selector -->
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4 text-center">Select Your Language</h2>
-      <div class="flex justify-center gap-4">
-        @for (lang of languages; track lang.code) {
-          <button
-            (click)="setLanguage(lang.code)"
-            [class.ring-4]="selectedLanguage === lang.code"
-            [class.ring-green-500]="selectedLanguage === lang.code"
-            class="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 hover:border-green-400 transition-all min-w-[120px]">
-            <span class="text-4xl mb-2">{{ lang.flag }}</span>
-            <span class="font-medium text-gray-800">{{ lang.name }}</span>
-          </button>
-        }
+    <!-- Microphone Icon with Centered Pulsating Effect -->
+    <div class="relative flex justify-center items-center mb-16">
+      <div
+        class="absolute w-24 h-24 bg-gradient-to-br from-blue-400 to-green-400 rounded-full mic-ring opacity-30"
+      ></div>
+      <div
+        class="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center shadow-lg"
+      >
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"
+          />
+          <path
+            d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"
+          />
+        </svg>
       </div>
     </div>
 
@@ -28,45 +59,73 @@
       <!-- Patient Card -->
       <button
         (click)="navigateToRole('patient')"
-        class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 text-left group">
-        <div class="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4 group-hover:bg-blue-200 transition-colors">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-          </svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">I'm a Patient</h3>
-        <p class="text-gray-600 mb-4">Describe your symptoms using voice</p>
+        class="bg-white rounded-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 text-left group p-4"
+      >
         <div class="flex items-center text-blue-600 font-medium">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+            />
           </svg>
-          Voice Enabled
+          I have an ailment
         </div>
       </button>
 
       <!-- Doctor Card -->
       <button
         (click)="navigateToRole('doctor')"
-        class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 text-left group">
-        <div class="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4 group-hover:bg-green-200 transition-colors">
-          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">I'm a Doctor</h3>
-        <p class="text-gray-600 mb-4">Review patient cases and respond</p>
+        class="bg-white rounded-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 text-left group p-4"
+      >
         <div class="flex items-center text-green-600 font-medium">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
-          Case Management
+          I am a medical professional
         </div>
       </button>
     </div>
-
-    <!-- Voice Prompt -->
-    <div class="mt-8 text-center">
-      <p class="text-gray-500 italic">💬 Say "Patient" or "Doctor" to continue</p>
-    </div>
   </div>
 </div>
+
+<style>
+  .roboto {
+    font-family: "Roboto", sans-serif;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.4);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+  }
+
+  .mic-ring {
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+</style>

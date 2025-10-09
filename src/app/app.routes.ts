@@ -10,11 +10,11 @@ export const routes: Routes = [
   { path: '', component: LandingPage },
   { path: 'patient/dashboard', component: PatientDashboardPage },
   { path: 'patient/records', component: ConsultationsListPage },
-  
+
   // IMPORTANT: More specific routes MUST come before dynamic routes
   { path: 'patient/consultation/new', component: NewConsultationPage },
   { path: 'patient/consultation/:id', component: ConsultationDetailPage },
-  
+
   { path: 'doctor/dashboard', component: DoctorDashboardPage },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];

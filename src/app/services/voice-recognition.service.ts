@@ -2,24 +2,26 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VoiceRecognitionService {
   private recognition: any;
   private isListening = false;
-  
+
   transcript$ = new Subject<string>();
   isListening$ = new Subject<boolean>();
   error$ = new Subject<string>();
 
   constructor() {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+
     if (SpeechRecognition) {
       this.recognition = new SpeechRecognition();
       this.recognition.continuous = true;
       this.recognition.interimResults = true;
-      
+
       this.recognition.onresult = (event: any) => {
         let transcript = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -47,9 +49,9 @@ export class VoiceRecognitionService {
     }
 
     const langMap: { [key: string]: string } = {
-      'en': 'en-US',
-      'tw': 'tw-GH',
-      'ga': 'ga-GH'
+      en: 'en-US',
+      tw: 'tw-GH',
+      ga: 'ga-GH',
     };
 
     this.recognition.lang = langMap[language] || 'en-US';

@@ -1,4 +1,3 @@
-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, Input } from '@angular/core';
@@ -8,7 +7,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
   @Input() currentLang: any;

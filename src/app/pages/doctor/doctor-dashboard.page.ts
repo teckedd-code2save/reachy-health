@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './doctor-dashboard.page.html',
-  styleUrl: './doctor-dashboard.page.css'
+  styleUrl: './doctor-dashboard.page.css',
 })
 export class DoctorDashboardPage implements OnInit {
   stats = {
     pendingCases: 0,
     todayAppointments: 0,
     criticalAlerts: 0,
-    totalPatients: 0
+    totalPatients: 0,
   };
 
   constructor(private router: Router) {}

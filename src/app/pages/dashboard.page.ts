@@ -11,14 +11,14 @@ import { AlertService } from '../services/alert.service';
   imports: [CommonModule],
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.css'],
-  providers: [PatientService, VisitService, CaseService, AlertService]
+  providers: [PatientService, VisitService, CaseService, AlertService],
 })
 export class DashboardPage implements OnInit {
   @Input() healthStats = {
     totalPatients: 0,
     todayConsultations: 0,
     pendingCases: 0,
-    criticalAlerts: 0
+    criticalAlerts: 0,
   };
   @Input() setView!: (view: string) => void;
 
@@ -26,23 +26,29 @@ export class DashboardPage implements OnInit {
     private patientService: PatientService,
     private visitService: VisitService,
     private caseService: CaseService,
-    private alertService: AlertService
+    private alertService: AlertService,
   ) {}
 
   ngOnInit(): void {
-    this.patientService.getPatients().subscribe(patients => {
+    this.patientService.getPatients().subscribe((patients) => {
       this.healthStats.totalPatients = patients.length;
     });
-    this.visitService.getVisits().subscribe(visits => {
+    this.visitService.getVisits().subscribe((visits) => {
       // Example: count today's visits
       const today = new Date().toISOString().slice(0, 10);
-      this.healthStats.todayConsultations = visits.filter((v: any) => v.visit_date?.slice(0, 10) === today).length;
+      this.healthStats.todayConsultations = visits.filter(
+        (v: any) => v.visit_date?.slice(0, 10) === today,
+      ).length;
     });
-    this.caseService.getCases().subscribe(cases => {
-      this.healthStats.pendingCases = cases.filter((c: any) => c.status === 'pending').length;
+    this.caseService.getCases().subscribe((cases) => {
+      this.healthStats.pendingCases = cases.filter(
+        (c: any) => c.status === 'pending',
+      ).length;
     });
-    this.alertService.getAlerts().subscribe(alerts => {
-      this.healthStats.criticalAlerts = alerts.filter((a: any) => a.severity === 'critical').length;
+    this.alertService.getAlerts().subscribe((alerts) => {
+      this.healthStats.criticalAlerts = alerts.filter(
+        (a: any) => a.severity === 'critical',
+      ).length;
     });
   }
 }

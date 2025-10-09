@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './diagnosis.page.html',
-  styleUrls: ['./diagnosis.page.css']
+  styleUrls: ['./diagnosis.page.css'],
 })
 export class DiagnosisPage {
   @Input() currentLang: any;

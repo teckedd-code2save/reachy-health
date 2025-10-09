@@ -22,7 +22,7 @@ export interface FileAttachment {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConsultationService {
   private apiUrl = `${environment.apiUrl}/consultations`;
@@ -34,41 +34,44 @@ export class ConsultationService {
     if (status) {
       params = params.set('status', status);
     }
-    return this.http.get<any[]>(this.apiUrl, { params }).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<any[]>(this.apiUrl, { params })
+      .pipe(catchError(this.handleError));
   }
 
   getById(id: number): Observable<any> {
     console.log('Fetching consultation with ID:', id);
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<any>(`${this.apiUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
   create(formData: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formData).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<any>(this.apiUrl, formData)
+      .pipe(catchError(this.handleError));
   }
 
   update(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, data).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .put<any>(`${this.apiUrl}/${id}`, data)
+      .pipe(catchError(this.handleError));
   }
 
   // Chat functionality
-  addChatMessage(consultationId: number, message: { sender: string; message: string; message_type?: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/${consultationId}/chat`, message).pipe(
-      catchError(this.handleError)
-    );
+  addChatMessage(
+    consultationId: number,
+    message: { sender: string; message: string; message_type?: string },
+  ): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/${consultationId}/chat`, message)
+      .pipe(catchError(this.handleError));
   }
 
   getChatMessages(consultationId: number): Observable<ChatMessage[]> {
-    return this.http.get<ChatMessage[]>(`${this.apiUrl}/${consultationId}/chat`).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<ChatMessage[]>(`${this.apiUrl}/${consultationId}/chat`)
+      .pipe(catchError(this.handleError));
   }
 
   // File upload functionality
@@ -76,19 +79,21 @@ export class ConsultationService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<any>(`${this.apiUrl}/${consultationId}/files`, formData).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<any>(`${this.apiUrl}/${consultationId}/files`, formData)
+      .pipe(catchError(this.handleError));
   }
 
   getConsultationFiles(consultationId: number): Observable<FileAttachment[]> {
-    return this.http.get<FileAttachment[]>(`${this.apiUrl}/${consultationId}/files`).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<FileAttachment[]>(`${this.apiUrl}/${consultationId}/files`)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Observable<never> {
     console.error('ConsultationService error:', error);
-    return throwError(() => new Error(error.error?.detail || 'An error occurred'));
+    return throwError(
+      () => new Error(error.error?.detail || 'An error occurred'),
+    );
   }
 }

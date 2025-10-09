@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AudioRecordingService {
   private mediaRecorder: MediaRecorder | null = null;
   private audioChunks: Blob[] = [];
-  
+
   recording$ = new Subject<boolean>();
   audioBlob$ = new Subject<Blob>();
   error$ = new Subject<string>();
@@ -25,7 +25,7 @@ export class AudioRecordingService {
       this.mediaRecorder.onstop = () => {
         const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
         this.audioBlob$.next(audioBlob);
-        stream.getTracks().forEach(track => track.stop());
+        stream.getTracks().forEach((track) => track.stop());
       };
 
       this.mediaRecorder.start();

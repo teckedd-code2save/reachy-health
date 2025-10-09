@@ -1,10 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VoiceInputComponent } from '../../components/voice-input.component';
 import { HttpClient } from '@angular/common/http';
-import { ConsultationService, ChatMessage, FileAttachment } from '../../services/consultation.service';
+import {
+  ConsultationService,
+  ChatMessage,
+  FileAttachment,
+} from '../../services/consultation.service';
 import { environment } from '../../../environments/environment';
 import { interval, Subject } from 'rxjs';
 import { takeUntil, switchMap } from 'rxjs/operators';
@@ -14,7 +24,7 @@ import { takeUntil, switchMap } from 'rxjs/operators';
   standalone: true,
   imports: [CommonModule, FormsModule, VoiceInputComponent],
   templateUrl: './patient-consultation.page.html',
-  styleUrl: './patient-consultation.page.css'
+  styleUrl: './patient-consultation.page.css',
 })
 export class PatientConsultationPage implements OnInit, OnDestroy {
   @ViewChild('chatFileInput') chatFileInput!: ElementRef<HTMLInputElement>;
@@ -22,7 +32,7 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
 
   // Consultation data
   consultation: any = null;
-  consultations: any[] = []; 
+  consultations: any[] = [];
 
   consultationId: number | null = null;
 
@@ -48,12 +58,12 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     public router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private consultationService: ConsultationService
+    private consultationService: ConsultationService,
   ) {}
 
   ngOnInit() {
     // Check if we have a consultation ID in the route
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       if (params['id']) {
         this.consultationId = +params['id'];
         this.loadConsultation();
@@ -95,7 +105,7 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
 
   onChatFileSelected(event: any) {
     const files = Array.from(event.target.files) as File[];
-    files.forEach(file => {
+    files.forEach((file) => {
       this.uploadChatFile(file);
     });
 
@@ -104,7 +114,7 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
   }
 
   removeFile(file: File) {
-    this.selectedFiles = this.selectedFiles.filter(f => f !== file);
+    this.selectedFiles = this.selectedFiles.filter((f) => f !== file);
   }
 
   // Consultation management
@@ -131,8 +141,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
         formData.append('files', file);
       }
 
-      const consultation = await this.consultationService.create(formData).toPromise();
-      
+      const consultation = await this.consultationService
+        .create(formData)
+        .toPromise();
+
       if (consultation) {
         this.consultation = consultation;
         this.consultationId = consultation.id;
@@ -148,9 +160,11 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
         // Navigate to the consultation page with ID
         this.router.navigate(['/patient/consultation', consultation.id]);
       }
-
     } catch (error: any) {
-      this.errorMessage = error?.error?.detail || error?.message || 'Failed to submit consultation';
+      this.errorMessage =
+        error?.error?.detail ||
+        error?.message ||
+        'Failed to submit consultation';
       console.error('Submission failed:', error);
     } finally {
       this.submitting = false;
@@ -161,8 +175,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     if (!this.consultationId) return;
 
     try {
-      const consultation = await this.consultationService.getById(this.consultationId).toPromise();
-      
+      const consultation = await this.consultationService
+        .getById(this.consultationId)
+        .toPromise();
+
       if (consultation) {
         this.consultation = consultation;
         await this.loadChatMessages();
@@ -170,7 +186,8 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
         this.errorMessage = 'Consultation not found';
       }
     } catch (error: any) {
-      this.errorMessage = error?.error?.detail || error?.message || 'Failed to load consultation';
+      this.errorMessage =
+        error?.error?.detail || error?.message || 'Failed to load consultation';
       console.error('Failed to load consultation:', error);
     }
   }
@@ -178,10 +195,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
   private async loadConsultations() {
     try {
       const consultations = await this.consultationService.getAll().toPromise();
-      
+
       if (consultations) {
         this.consultations = consultations;
-        
+
         // If we have consultations but no specific one selected, show the most recent
         if (consultations.length > 0 && !this.consultationId) {
           this.consultation = consultations[0];
@@ -191,7 +208,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
         }
       }
     } catch (error: any) {
-      this.errorMessage = error?.error?.detail || error?.message || 'Failed to load consultations';
+      this.errorMessage =
+        error?.error?.detail ||
+        error?.message ||
+        'Failed to load consultations';
       console.error('Failed to load consultations:', error);
     }
   }
@@ -206,18 +226,21 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     this.errorMessage = '';
 
     try {
-      const message = await this.consultationService.addChatMessage(this.consultationId, {
-        sender: 'patient',
-        message: this.newMessage.trim(),
-        message_type: 'text'
-      }).toPromise();
+      const message = await this.consultationService
+        .addChatMessage(this.consultationId, {
+          sender: 'patient',
+          message: this.newMessage.trim(),
+          message_type: 'text',
+        })
+        .toPromise();
 
       if (message) {
         this.newMessage = '';
         await this.loadChatMessages();
       }
     } catch (error: any) {
-      this.errorMessage = error?.error?.detail || error?.message || 'Failed to send message';
+      this.errorMessage =
+        error?.error?.detail || error?.message || 'Failed to send message';
       console.error('Failed to send message:', error);
     } finally {
       this.sendingMessage = false;
@@ -228,8 +251,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     if (!this.consultationId) return;
 
     try {
-      const messages = await this.consultationService.getChatMessages(this.consultationId).toPromise();
-      
+      const messages = await this.consultationService
+        .getChatMessages(this.consultationId)
+        .toPromise();
+
       if (messages) {
         this.chatMessages = messages;
         this.scrollToBottom();
@@ -252,7 +277,9 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     interval(5000) // Poll every 5 seconds
       .pipe(
         takeUntil(this.destroy$),
-        switchMap(() => this.consultationService.getChatMessages(this.consultationId!))
+        switchMap(() =>
+          this.consultationService.getChatMessages(this.consultationId!),
+        ),
       )
       .subscribe({
         next: (messages) => {
@@ -263,14 +290,15 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error('Chat polling error:', error);
-        }
+        },
       });
   }
 
   private scrollToBottom() {
     setTimeout(() => {
       if (this.chatContainer) {
-        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+        this.chatContainer.nativeElement.scrollTop =
+          this.chatContainer.nativeElement.scrollHeight;
       } else {
         // Fallback to getElementById
         const chatContainer = document.getElementById('chatContainer');
@@ -289,13 +317,16 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     }
 
     try {
-      const result = await this.consultationService.uploadFile(this.consultationId, file).toPromise();
-      
+      const result = await this.consultationService
+        .uploadFile(this.consultationId, file)
+        .toPromise();
+
       if (result) {
         await this.loadConsultation(); // Refresh to show new file
       }
     } catch (error: any) {
-      this.errorMessage = error?.error?.detail || error?.message || 'Failed to upload file';
+      this.errorMessage =
+        error?.error?.detail || error?.message || 'Failed to upload file';
       console.error('Failed to upload chat file:', error);
     }
   }
@@ -303,7 +334,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
   // Utility functions
   formatTime(timestamp: string): string {
     if (!timestamp) return '';
-    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return new Date(timestamp).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   }
 
   formatDate(timestamp: string): string {

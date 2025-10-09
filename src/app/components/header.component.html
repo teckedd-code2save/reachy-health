@@ -1,10 +1,27 @@
-
 <div class="w-full bg-white shadow-sm border-b border-b-[0.00vw]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row items-center justify-between h-20 py-2">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between h-20 py-2"
+    >
       <div class="flex items-center space-x-4">
         <!-- Stethoscope SVG icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-stethoscope w-8 h-8 text-green-600"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path><circle cx="20" cy="10" r="2"></circle>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-stethoscope w-8 h-8 text-green-600"
+        >
+          <path
+            d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"
+          ></path>
+          <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path>
+          <circle cx="20" cy="10" r="2"></circle>
         </svg>
         <h1 class="text-xl md:text-2xl font-semibold text-gray-900">
           {{ currentLang.title }}
@@ -12,12 +29,28 @@
       </div>
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
         <!-- Connection Status -->
-        <div [ngClass]="isOffline ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'" class="flex items-center space-x-2 px-3 py-1 rounded-full text-sm">
-          <span class="w-4 h-4 inline-block rounded-full" [ngClass]="isOffline ? 'bg-red-700' : 'bg-green-700'"></span>
-          <span>{{ isOffline ? currentLang.offline : currentLang.online }}</span>
+        <div
+          [ngClass]="
+            isOffline
+              ? 'bg-red-100 text-red-700'
+              : 'bg-green-100 text-green-700'
+          "
+          class="flex items-center space-x-2 px-3 py-1 rounded-full text-sm"
+        >
+          <span
+            class="w-4 h-4 inline-block rounded-full"
+            [ngClass]="isOffline ? 'bg-red-700' : 'bg-green-700'"
+          ></span>
+          <span>{{
+            isOffline ? currentLang.offline : currentLang.online
+          }}</span>
         </div>
         <!-- Language Selector -->
-        <select [ngModel]="currentLanguage" (change)="setLanguage($event)" class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+        <select
+          [ngModel]="currentLanguage"
+          (change)="setLanguage($event)"
+          class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
           <option value="english">English</option>
           <option value="twi">Twi</option>
           <option value="ga">Ga</option>
