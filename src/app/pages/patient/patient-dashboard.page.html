@@ -2,7 +2,7 @@
   <!-- Header -->
   <header class="bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-gray-900">HealthyAI</h1>
+      <h1 class="text-2xl font-bold text-gray-900">ReachyAI</h1>
       <div class="flex items-center gap-3">
         <!-- Notifications Badge -->
         <button (click)="toggleSidebar()" class="relative p-2 rounded-full hover:bg-gray-100">
@@ -23,14 +23,14 @@
   <main class="max-w-7xl mx-auto px-4 py-8">
     <!-- Welcome Message -->
     <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h2>
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Good Morning, John</h2>
       <p class="text-gray-600">How can I help you today?</p>
     </div>
 
     <!-- Main Actions -->
     <div class="grid md:grid-cols-2 gap-6 mb-8">
       <button
-        (click)="navigateTo('consultation')"
+        (click)="navigateTo('consultation/new')"
         class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left">
         <div class="flex items-center mb-4">
           <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
@@ -39,7 +39,7 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold">Describe My Symptoms</h3>
+            <h3 class="text-xl font-bold">Start Consultation</h3>
             <p class="text-blue-100 text-sm">Voice consultation</p>
           </div>
         </div>
@@ -55,7 +55,7 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold">My Health Records</h3>
+            <h3 class="text-xl font-bold">Past Records</h3>
             <p class="text-green-100 text-sm">View past consultations</p>
           </div>
         </div>
