@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -25,9 +25,14 @@ export interface FileAttachment {
   providedIn: 'root',
 })
 export class ConsultationService {
+  private http = inject(HttpClient);
+
   private apiUrl = `${environment.apiUrl}/consultations`;
 
-  constructor(private http: HttpClient) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   getAll(status?: string): Observable<any[]> {
     let params = new HttpParams();

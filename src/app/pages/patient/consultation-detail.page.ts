@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef,
-  signal,
-  computed,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, signal, computed, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -458,6 +450,10 @@ import { takeUntil, switchMap } from 'rxjs/operators';
   ],
 })
 export class ConsultationDetailPage implements OnInit, OnDestroy {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private consultationService = inject(ConsultationService);
+
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLDivElement>;
 
   // Signals
@@ -480,11 +476,10 @@ export class ConsultationDetailPage implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private consultationService: ConsultationService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {

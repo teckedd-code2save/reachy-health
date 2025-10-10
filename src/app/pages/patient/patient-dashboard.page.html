@@ -1,8 +1,8 @@
 <div class="min-h-screen bg-gray-50">
   <!-- Header -->
-  <header class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-gray-900">ReachyAI</h1>
+  <header class="bg-white p-3 md:p-4">
+    <div class="rounded-lg shadow-lg p-2 md:p-3  mx-auto flex justify-between items-center">
+      <h1 class="text-2xl md:text-4xl roboto text-blue-600 pl-3">Reachy AI</h1>
       <div class="flex items-center gap-3">
         <!-- Notifications Badge -->
         <button
@@ -48,15 +48,15 @@
   <main class="max-w-7xl mx-auto px-4 py-8">
     <!-- Welcome Message -->
     <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-2">Good Morning, John</h2>
-      <p class="text-gray-600">How can I help you today?</p>
+      <h2 class="text-xl md:text-3xl font-medium text-gray-900 mb-2">{{greeting()}}, <span class="text-gray-500">{{ userName }}</span></h2>
+      <p class="text-gray-600 text-l md:text-xl">Lets get to business.</p>
     </div>
 
     <!-- Main Actions -->
     <div class="grid md:grid-cols-2 gap-6 mb-8">
       <button
         (click)="navigateTo('consultation/new')"
-        class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left"
+        class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left"
       >
         <div class="flex items-center mb-4">
           <div
@@ -85,7 +85,7 @@
 
       <button
         (click)="navigateTo('records')"
-        class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left"
+        class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left"
       >
         <div class="flex items-center mb-4">
           <div
@@ -106,7 +106,7 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold">Past Records</h3>
+            <h3 class="text-xl font-bold">History</h3>
             <p class="text-green-100 text-sm">View past consultations</p>
           </div>
         </div>
@@ -583,22 +583,4 @@
     </div>
   </div>
 
-  <!-- Floating Voice Button -->
-  <button
-    class="fixed bottom-8 right-8 w-16 h-16 bg-red-500 rounded-full shadow-lg flex items-center justify-center hover:bg-red-600 transition-colors"
-  >
-    <svg
-      class="w-8 h-8 text-white"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-      />
-    </svg>
-  </button>
 </div>

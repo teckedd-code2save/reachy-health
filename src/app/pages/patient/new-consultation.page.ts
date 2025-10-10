@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,8 +12,8 @@ import { ConsultationService } from '../../services/consultation.service';
   template: `
     <div class="min-h-screen bg-gray-50">
       <!-- Header -->
-      <header class="bg-white shadow-sm">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center">
+      <header class="bg-white p-3 md:p-4">
+        <div class="max-w-4xl mx-auto rounded-lg shadow-lg p-2 md:p-3 flex items-center">
           <button
             (click)="goBack()"
             class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -32,7 +32,7 @@ import { ConsultationService } from '../../services/consultation.service';
               />
             </svg>
           </button>
-          <h1 class="text-2xl font-bold text-gray-900">New Consultation</h1>
+          <h1 class="text-2xl font-medium md:text-3xl text-blue-600 pl-3">New Consultation</h1>
         </div>
       </header>
 
@@ -244,6 +244,9 @@ import { ConsultationService } from '../../services/consultation.service';
   ],
 })
 export class NewConsultationPage {
+  private router = inject(Router);
+  private consultationService = inject(ConsultationService);
+
   // Signals
   transcript = signal('');
   language = signal('en');
@@ -252,13 +255,13 @@ export class NewConsultationPage {
   submitting = signal(false);
   errorMessage = signal('');
 
-  constructor(
-    private router: Router,
-    private consultationService: ConsultationService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   goBack() {
-    this.router.navigate(['/patient/consultations']);
+    this.router.navigate(['/patient/dashboard']);
   }
 
   onTranscription(text: string) {

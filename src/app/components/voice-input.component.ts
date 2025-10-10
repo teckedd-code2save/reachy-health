@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VoiceRecognitionService } from '../services/voice-recognition.service';
 import { AudioRecordingService } from '../services/audio-recording.service';
@@ -19,6 +12,9 @@ import { Subscription } from 'rxjs';
   styleUrl: './voice-input.component.css',
 })
 export class VoiceInputComponent implements OnInit, OnDestroy {
+  private voiceRecognition = inject(VoiceRecognitionService);
+  private audioRecording = inject(AudioRecordingService);
+
   @Input() language = 'en';
   @Output() transcription = new EventEmitter<string>();
   @Output() audioRecorded = new EventEmitter<Blob>();
@@ -27,10 +23,10 @@ export class VoiceInputComponent implements OnInit, OnDestroy {
   transcript = '';
   private subscriptions: Subscription[] = [];
 
-  constructor(
-    private voiceRecognition: VoiceRecognitionService,
-    private audioRecording: AudioRecordingService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.subscriptions.push(

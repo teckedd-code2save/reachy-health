@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ConsultationService } from '../../services/consultation.service';
@@ -318,6 +318,9 @@ import { ConsultationService } from '../../services/consultation.service';
   ],
 })
 export class ConsultationsListPage implements OnInit {
+  private router = inject(Router);
+  private consultationService = inject(ConsultationService);
+
   // Signals
   consultations = signal<any[]>([]);
   loading = signal(false);
@@ -326,10 +329,10 @@ export class ConsultationsListPage implements OnInit {
   // Computed signal for total count
   totalCount = computed(() => this.consultations().length);
 
-  constructor(
-    private router: Router,
-    private consultationService: ConsultationService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.loadConsultations();

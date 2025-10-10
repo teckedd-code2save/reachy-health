@@ -1,12 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
+  private http = inject(HttpClient);
+
   private apiUrl = 'http://0.0.0.0:8000/api/v1/alerts';
 
-  constructor(private http: HttpClient) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   getAlerts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/`);

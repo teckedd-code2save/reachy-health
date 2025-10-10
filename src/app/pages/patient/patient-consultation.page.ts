@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +21,11 @@ import { takeUntil, switchMap } from 'rxjs/operators';
   styleUrl: './patient-consultation.page.css',
 })
 export class PatientConsultationPage implements OnInit, OnDestroy {
+  router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private http = inject(HttpClient);
+  private consultationService = inject(ConsultationService);
+
   @ViewChild('chatFileInput') chatFileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLDivElement>;
 
@@ -54,12 +53,10 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
   errorMessage = '';
   private destroy$ = new Subject<void>();
 
-  constructor(
-    public router: Router,
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private consultationService: ConsultationService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     // Check if we have a consultation ID in the route

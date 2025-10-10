@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { PatientService } from '../services/patient.service';
 import { VisitService } from '../services/visit.service';
 import { CaseService } from '../services/case.service';
@@ -14,6 +14,11 @@ import { AlertService } from '../services/alert.service';
   providers: [PatientService, VisitService, CaseService, AlertService],
 })
 export class DashboardPage implements OnInit {
+  private patientService = inject(PatientService);
+  private visitService = inject(VisitService);
+  private caseService = inject(CaseService);
+  private alertService = inject(AlertService);
+
   @Input() healthStats = {
     totalPatients: 0,
     todayConsultations: 0,
@@ -22,12 +27,10 @@ export class DashboardPage implements OnInit {
   };
   @Input() setView!: (view: string) => void;
 
-  constructor(
-    private patientService: PatientService,
-    private visitService: VisitService,
-    private caseService: CaseService,
-    private alertService: AlertService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.patientService.getPatients().subscribe((patients) => {

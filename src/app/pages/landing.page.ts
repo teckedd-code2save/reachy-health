@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './landing.page.css',
 })
 export class LandingPage {
+  private router = inject(Router);
+
   selectedLanguage = 'en';
 
   languages = [
@@ -18,7 +20,10 @@ export class LandingPage {
     { code: 'ga', name: 'Ga', flag: '🇬🇭' },
   ];
 
-  constructor(private router: Router) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   onLanguageChange(event: Event) {
     const select = event.target as HTMLSelectElement;

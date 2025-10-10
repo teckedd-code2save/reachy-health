@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './doctor-dashboard.page.css',
 })
 export class DoctorDashboardPage implements OnInit {
+  private router = inject(Router);
+
   stats = {
     pendingCases: 0,
     todayAppointments: 0,
@@ -17,7 +19,10 @@ export class DoctorDashboardPage implements OnInit {
     totalPatients: 0,
   };
 
-  constructor(private router: Router) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     // Load stats from service
