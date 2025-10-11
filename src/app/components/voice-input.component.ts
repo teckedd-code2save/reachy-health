@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VoiceRecognitionService } from '../services/voice-recognition.service';
 import { AudioRecordingService } from '../services/audio-recording.service';

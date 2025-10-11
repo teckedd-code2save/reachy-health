@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" target-language="ga" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="4877535962363056280" datatype="html">
+        <source> Seek Medical Help In Your Local Language <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline decoration-sky-500 font-medium&quot;&gt;"/>With<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target> Nyɛ Ayɔyɔ Lɛ Gbɛmɔ Kɛ I Gbɛ Mli <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline decoration-sky-500 font-medium&quot;&gt;"/>Ni<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing.page.html</context>
+          <context context-type="linenumber">30,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2958109734792544903" datatype="html">
+        <source> Our Voice-Enabled Healthcare Platform </source>
+        <target> Ni Gbejeejɛɛ Lɛ Ayɔyɔ Kpakpa Lɛ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing.page.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2435023416551237690" datatype="html">
+        <source>I have an ailment</source>
+        <target>Mi yɛ ajɛmɔ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing.page.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3945334597483375353" datatype="html">
+        <source>I am a medical professional</source>
+        <target>Mi nyɛ ayɔyɔ wɔlɔ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing.page.html</context>
+          <context context-type="linenumber">101,102</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

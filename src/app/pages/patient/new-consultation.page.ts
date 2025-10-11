@@ -13,7 +13,9 @@ import { ConsultationService } from '../../services/consultation.service';
     <div class="min-h-screen bg-gray-50">
       <!-- Header -->
       <header class="bg-white p-3 md:p-4">
-        <div class="max-w-4xl mx-auto rounded-lg shadow-lg p-2 md:p-3 flex items-center">
+        <div
+          class="max-w-4xl mx-auto rounded-lg shadow-lg p-2 md:p-3 flex items-center"
+        >
           <button
             (click)="goBack()"
             class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -32,7 +34,9 @@ import { ConsultationService } from '../../services/consultation.service';
               />
             </svg>
           </button>
-          <h1 class="text-2xl font-medium md:text-3xl text-blue-600 pl-3">New Consultation</h1>
+          <h1 class="text-2xl font-medium md:text-3xl text-blue-600 pl-3">
+            New Consultation
+          </h1>
         </div>
       </header>
 

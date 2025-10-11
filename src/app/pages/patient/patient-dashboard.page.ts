@@ -14,8 +14,8 @@ export class PatientDashboardPage {
 
   sidebarOpen = false;
   activeTab: 'reminders' | 'chats' = 'reminders';
-  userName = 'Edward Twumasi'; 
-  greeting = signal("Good Morning");
+  userName = 'Edward Twumasi';
+  greeting = signal('Good Morning');
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
@@ -24,11 +24,11 @@ export class PatientDashboardPage {
   constructor() {
     const hour = new Date().getHours();
     if (hour < 12) {
-      this.greeting.set("Good Morning");
+      this.greeting.set('Good Morning');
     } else if (hour < 18) {
-      this.greeting.set("Good Afternoon");
+      this.greeting.set('Good Afternoon');
     } else {
-      this.greeting.set("Good Evening");
+      this.greeting.set('Good Evening');
     }
   }
 
