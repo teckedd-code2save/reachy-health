@@ -34,7 +34,7 @@ import { ConsultationService } from '../../services/consultation.service';
               />
             </svg>
           </button>
-          <h1 class="text-2xl font-medium md:text-3xl text-blue-600 pl-3">
+          <h1 class="text-xl font-medium md:text-2xl text-blue-500">
             New Consultation
           </h1>
         </div>

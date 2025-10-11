@@ -9,7 +9,7 @@ import { ConsultationsListPage } from './pages/patient/consultation-list.page';
 export const routes: Routes = [
   { path: '', component: LandingPage },
   { path: 'patient/dashboard', component: PatientDashboardPage },
-  { path: 'patient/records', component: ConsultationsListPage },
+  { path: 'patient/consultations', component: ConsultationsListPage },
 
   // IMPORTANT: More specific routes MUST come before dynamic routes
   { path: 'patient/consultation/new', component: NewConsultationPage },

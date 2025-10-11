@@ -232,6 +232,7 @@ export class PatientConsultationPage implements OnInit, OnDestroy {
     try {
       const message = await this.consultationService
         .addChatMessage(this.consultationId, {
+          consultation_id:this.consultationId,
           sender: 'patient',
           message: this.newMessage.trim(),
           message_type: 'text',

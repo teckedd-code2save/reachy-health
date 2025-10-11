@@ -48,7 +48,7 @@ import { takeUntil, switchMap } from 'rxjs/operators';
                 </svg>
               </button>
               <div>
-                <h1 class="text-2xl font-bold text-gray-900">
+                <h1 class="text-xl font-medium md:text-2xl text-blue-500">
                   Consultation #{{ consultationId() }}
                 </h1>
                 @if (consultation()) {
@@ -565,6 +565,7 @@ export class ConsultationDetailPage implements OnInit, OnDestroy {
 
     this.consultationService
       .addChatMessage(id, {
+        consultation_id:id,
         sender: 'patient',
         message: this.newMessageText.trim(),
         message_type: 'text',

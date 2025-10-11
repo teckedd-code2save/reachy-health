@@ -66,7 +66,7 @@ export class ConsultationService {
   // Chat functionality
   addChatMessage(
     consultationId: number,
-    message: { sender: string; message: string; message_type?: string },
+    message: {consultation_id:number, sender: string; message: string; message_type?: string },
   ): Observable<any> {
     return this.http
       .post<any>(`${this.apiUrl}/${consultationId}/chat`, message)
