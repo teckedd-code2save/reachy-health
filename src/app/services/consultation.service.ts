@@ -5,11 +5,27 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export interface ChatMessage {
-  id?: number;
-  sender: string;
+  id: number;
+  consultation_id: number;
+  sender: 'patient' | 'doctor' | 'ai';
   message: string;
-  message_type: string;
+  message_type: 'text' | 'file' | 'audio';
   timestamp: string;
+}
+
+export interface MedicalEntities {
+  symptoms: string[];
+  diagnoses: string[];
+  medications: string[];
+}
+
+export interface ConsultationSummary {
+  consultation_id: number;
+  summary: string;
+  key_points: string[];
+  medical_entities: MedicalEntities;
+  sentiment: string;
+  generated_at: string;
 }
 
 export interface FileAttachment {
@@ -66,7 +82,12 @@ export class ConsultationService {
   // Chat functionality
   addChatMessage(
     consultationId: number,
-    message: {consultation_id:number, sender: string; message: string; message_type?: string },
+    message: {
+      consultation_id: number;
+      sender: string;
+      message: string;
+      message_type?: string;
+    },
   ): Observable<any> {
     return this.http
       .post<any>(`${this.apiUrl}/${consultationId}/chat`, message)
@@ -100,5 +121,61 @@ export class ConsultationService {
     return throwError(
       () => new Error(error.error?.detail || 'An error occurred'),
     );
+  }
+
+  /**
+   * Generate AI-powered summary for a consultation
+   */
+  generateSummary(consultationId: number): Observable<ConsultationSummary> {
+    return this.http
+      .post<ConsultationSummary>(
+        `${this.apiUrl}/consultations/${consultationId}/summary`,
+        {},
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Failed to generate summary:', error);
+          return throwError(() => error);
+        }),
+      );
+  }
+
+  /**
+   * Get existing summary for a consultation
+   */
+  getSummary(consultationId: number): Observable<ConsultationSummary | null> {
+    return this.http
+      .get<ConsultationSummary>(
+        `${this.apiUrl}/consultations/${consultationId}/summary`,
+      )
+      .pipe(
+        catchError((error) => {
+          if (error.status === 404) {
+            return throwError(() => null);
+          }
+          console.error('Failed to get summary:', error);
+          return throwError(() => error);
+        }),
+      );
+  }
+
+  /**
+   * Export summary as PDF or TXT
+   */
+  exportSummary(
+    consultationId: number,
+    format: 'pdf' | 'txt' = 'pdf',
+  ): Observable<Blob> {
+    return this.http
+      .get(
+        `${this.apiUrl}/consultations/${consultationId}/summary/export?format=${format}`,
+        { responseType: 'blob' },
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Failed to export summary:', error);
+          return throwError(() => error);
+        }),
+      );
   }
 }

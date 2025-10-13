@@ -12,26 +12,30 @@ import { ConsultationService } from '../../services/consultation.service';
       <!-- Header -->
       <header class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-4">
-          <div class="rounded-lg shadow-lg p-2 md:p-3 flex items-center justify-between">
+          <div
+            class="rounded-lg shadow-lg p-2 md:p-3 flex items-center justify-between"
+          >
             <button
-                (click)="goBack()"
-                class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              (click)="goBack()"
+              class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg
+                class="w-6 h-6 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <svg
-                  class="w-6 h-6 text-gray-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-            <h1 class="text-xl font-medium md:text-2xl text-blue-500">My Consultations</h1>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <h1 class="text-xl font-medium md:text-2xl text-blue-500">
+              My Consultations
+            </h1>
             <button
               (click)="createNewConsultation()"
               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
@@ -381,7 +385,7 @@ export class ConsultationsListPage implements OnInit {
     this.router.navigate(['/patient/consultation', id]);
   }
 
-   goBack() {
+  goBack() {
     this.router.navigate(['/patient/dashboard']);
   }
 
