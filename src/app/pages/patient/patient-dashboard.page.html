@@ -1,11 +1,12 @@
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
   <!-- Header -->
-  <header class="bg-white p-3 md:p-4">
-    <div
-      class="rounded-lg shadow-lg p-2 md:p-3 mx-auto flex justify-between items-center"
-    >
-      <h1 class="text-2xl md:text-4xl roboto text-blue-600 pl-3">Reachy AI</h1>
-      <div class="flex items-center gap-3">
+  <header class="bg-white/70 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl md:text-3xl font-semibold text-blue-600">
+          Reachy AI
+        </h1>
+        <div class="flex items-center gap-3">
         <!-- Notifications Badge -->
         <button
           (click)="toggleSidebar()"
@@ -44,6 +45,7 @@
           </svg>
         </button>
       </div>
+      </div>
     </div>
   </header>
 
@@ -60,14 +62,14 @@
     <div class="grid md:grid-cols-2 gap-6 mb-8">
       <button
         (click)="navigateTo('consultation/new')"
-        class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left"
+        class="bg-gradient-to-br from-blue-50 to-blue-100 text-blue-700 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 text-left border border-blue-200"
       >
         <div class="flex items-center mb-4">
           <div
-            class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4"
+            class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4"
           >
             <svg
-              class="w-6 h-6"
+              class="w-6 h-6 text-blue-700"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -81,22 +83,22 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold">Start Consultation</h3>
-            <p class="text-blue-100 text-sm">Voice consultation</p>
+            <h3 class="text-xl font-bold text-blue-900">Start Consultation</h3>
+            <p class="text-blue-600 text-sm">Voice consultation</p>
           </div>
         </div>
       </button>
 
       <button
         (click)="navigateTo('consultations')"
-        class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-left"
+        class="bg-gradient-to-br from-blue-50 to-blue-100 text-blue-700 rounded-xl p-4 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 text-left border border-blue-200"
       >
         <div class="flex items-center mb-4">
           <div
-            class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4"
+            class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4"
           >
             <svg
-              class="w-6 h-6"
+              class="w-6 h-6 text-blue-700"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -110,326 +112,243 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold">History</h3>
-            <p class="text-green-100 text-sm">View past consultations</p>
+            <h3 class="text-xl font-bold text-blue-900">History</h3>
+            <p class="text-blue-600 text-sm">View past consultations</p>
           </div>
         </div>
       </button>
     </div>
 
     <!-- Health Overview -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h3 class="text-xl font-semibold text-gray-800 mb-6">Health Overview</h3>
-
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <!-- Blood Pressure -->
-        <div
-          class="text-center border border-gray-200 rounded-lg p-5 hover:border-blue-300 transition-colors"
-        >
-          <div class="text-3xl font-bold text-blue-600 mb-1">BP</div>
-          <div class="text-lg font-semibold text-gray-800 mb-2">112/75</div>
-          <div
-            class="flex items-center justify-center gap-1 text-sm text-green-600"
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-200">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-blue-900">Recent Activity</h3>
+        @if (!hasHealthData()) {
+          <button
+            (click)="connectHealthDevice()"
+            class="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              ></path>
-            </svg>
-            <span class="font-medium">Normal</span>
-          </div>
-        </div>
-
-        <!-- Heart Rate -->
-        <div
-          class="text-center border border-gray-200 rounded-lg p-5 hover:border-green-300 transition-colors"
-        >
-          <div class="text-3xl font-bold text-green-600 mb-1">HR</div>
-          <div class="text-lg font-semibold text-gray-800 mb-2">72 bpm</div>
-          <div
-            class="flex items-center justify-center gap-1 text-sm text-green-600"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              ></path>
-            </svg>
-            <span class="font-medium">Good</span>
-          </div>
-        </div>
-
-        <!-- Blood Sugar -->
-        <div
-          class="text-center border border-gray-200 rounded-lg p-5 hover:border-yellow-300 transition-colors"
-        >
-          <div class="text-3xl font-bold text-yellow-600 mb-1">Sugar</div>
-          <div class="text-lg font-semibold text-gray-800 mb-2">95 mg/dL</div>
-          <div
-            class="flex items-center justify-center gap-1 text-sm text-yellow-600"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 12H4"
-              ></path>
-            </svg>
-            <span class="font-medium">Watch</span>
-          </div>
-        </div>
-
-        <!-- BMI -->
-        <div
-          class="text-center border border-gray-200 rounded-lg p-5 hover:border-purple-300 transition-colors"
-        >
-          <div class="text-3xl font-bold text-purple-600 mb-1">BMI</div>
-          <div class="text-lg font-semibold text-gray-800 mb-2">25.0</div>
-          <div
-            class="flex items-center justify-center gap-1 text-sm text-orange-600"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 10l7-7m0 0l7 7m-7-7v18"
-              ></path>
-            </svg>
-            <span class="font-medium">Elevated</span>
-          </div>
-        </div>
+            Connect Device
+          </button>
+        }
       </div>
 
-      <!-- Weekly Trend -->
-      <div class="border-t border-gray-200 pt-6 mb-6">
-        <h4 class="text-lg font-semibold text-gray-800 mb-4">7-Day Trend</h4>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- BP Trend -->
-          <div class="bg-blue-50 rounded-lg p-4">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-sm font-semibold text-gray-700"
-                >Blood Pressure</span
-              >
-              <span class="text-xs text-green-600 font-medium"
-                >↓ 3% from last week</span
-              >
-            </div>
-            <div class="flex items-end gap-1 h-16">
-              <div
-                class="flex-1 bg-blue-300 rounded-t"
-                style="height: 60%"
-              ></div>
-              <div
-                class="flex-1 bg-blue-300 rounded-t"
-                style="height: 70%"
-              ></div>
-              <div
-                class="flex-1 bg-blue-400 rounded-t"
-                style="height: 55%"
-              ></div>
-              <div
-                class="flex-1 bg-blue-400 rounded-t"
-                style="height: 65%"
-              ></div>
-              <div
-                class="flex-1 bg-blue-500 rounded-t"
-                style="height: 50%"
-              ></div>
-              <div
-                class="flex-1 bg-blue-500 rounded-t"
-                style="height: 48%"
-              ></div>
-              <div
-                class="flex-1 bg-blue-600 rounded-t"
-                style="height: 45%"
-              ></div>
-            </div>
-            <div class="flex justify-between mt-2 text-xs text-gray-500">
-              <span>Mon</span>
-              <span>Today</span>
-            </div>
+      @if (hasHealthData()) {
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="text-center p-4">
+            <div class="text-2xl font-bold text-blue-900 mb-1">BP</div>
+            <div class="text-lg text-blue-600">{{ healthData().bp }}</div>
+            <div class="text-xs text-gray-500 mt-1">{{ healthData().bpStatus }}</div>
           </div>
 
-          <!-- Heart Rate Trend -->
-          <div class="bg-green-50 rounded-lg p-4">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-sm font-semibold text-gray-700"
-                >Heart Rate</span
-              >
-              <span class="text-xs text-green-600 font-medium">↔ Stable</span>
-            </div>
-            <div class="flex items-end gap-1 h-16">
-              <div
-                class="flex-1 bg-green-300 rounded-t"
-                style="height: 55%"
-              ></div>
-              <div
-                class="flex-1 bg-green-300 rounded-t"
-                style="height: 58%"
-              ></div>
-              <div
-                class="flex-1 bg-green-400 rounded-t"
-                style="height: 52%"
-              ></div>
-              <div
-                class="flex-1 bg-green-400 rounded-t"
-                style="height: 56%"
-              ></div>
-              <div
-                class="flex-1 bg-green-500 rounded-t"
-                style="height: 54%"
-              ></div>
-              <div
-                class="flex-1 bg-green-500 rounded-t"
-                style="height: 53%"
-              ></div>
-              <div
-                class="flex-1 bg-green-600 rounded-t"
-                style="height: 55%"
-              ></div>
-            </div>
-            <div class="flex justify-between mt-2 text-xs text-gray-500">
-              <span>Mon</span>
-              <span>Today</span>
-            </div>
+          <div class="text-center p-4">
+            <div class="text-2xl font-bold text-blue-900 mb-1">HR</div>
+            <div class="text-lg text-blue-600">{{ healthData().hr }} bpm</div>
+            <div class="text-xs text-gray-500 mt-1">{{ healthData().hrStatus }}</div>
+          </div>
+
+          <div class="text-center p-4">
+            <div class="text-2xl font-bold text-blue-900 mb-1">Sugar</div>
+            <div class="text-lg text-blue-600">{{ healthData().sugar }} mg/dL</div>
+            <div class="text-xs text-gray-500 mt-1">{{ healthData().sugarStatus }}</div>
+          </div>
+
+          <div class="text-center p-4">
+            <div class="text-2xl font-bold text-blue-900 mb-1">BMI</div>
+            <div class="text-lg text-blue-600">{{ healthData().bmi }}</div>
+            <div class="text-xs text-gray-500 mt-1">{{ healthData().bmiStatus }}</div>
           </div>
         </div>
-      </div>
+      } @else {
+        <!-- Empty State -->
+        <div class="text-center py-12">
+          <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          <h4 class="text-lg font-semibold text-blue-900 mb-2">No Health Data Yet</h4>
+          <p class="text-sm text-gray-600 mb-4">Connect a health device to track your vitals</p>
+          <button
+            (click)="connectHealthDevice()"
+            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Connect Device
+          </button>
+        </div>
+      }
 
       <!-- Recommendations -->
+      @if (hasHealthData()) {
       <div class="border-t border-gray-200 pt-6">
-        <h4 class="text-lg font-semibold text-gray-800 mb-4">
+        <h4 class="text-lg font-semibold text-blue-900 mb-4">
           Recommendations
         </h4>
         <div class="space-y-3">
-          <!-- Recommendation 1 -->
-          <div class="flex items-start gap-3 bg-blue-50 rounded-lg p-4">
-            <div
-              class="flex-shrink-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"
-            >
-              <svg
-                class="w-5 h-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h5 class="font-semibold text-gray-800 mb-1">
-                Blood Pressure Improving
-              </h5>
-              <p class="text-sm text-gray-600">
-                Your BP has decreased by 3% this week. Continue your current
-                medication routine and maintain low sodium intake.
-              </p>
-            </div>
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h5 class="font-semibold text-blue-900 mb-2">Blood Pressure Improving</h5>
+            <p class="text-sm text-gray-600">
+              Your BP has decreased by 3% this week. Continue your current medication routine.
+            </p>
           </div>
 
-          <!-- Recommendation 2 -->
-          <div class="flex items-start gap-3 bg-yellow-50 rounded-lg p-4">
-            <div
-              class="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center"
-            >
-              <svg
-                class="w-5 h-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                ></path>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h5 class="font-semibold text-gray-800 mb-1">
-                Monitor Blood Sugar
-              </h5>
-              <p class="text-sm text-gray-600">
-                Your sugar levels are in the pre-diabetic range. Consider
-                reducing carbohydrate intake and schedule a follow-up test.
-              </p>
-            </div>
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h5 class="font-semibold text-blue-900 mb-2">Monitor Blood Sugar</h5>
+            <p class="text-sm text-gray-600">
+              Your sugar levels are in the pre-diabetic range. Consider reducing carbohydrate intake.
+            </p>
           </div>
 
-          <!-- Recommendation 3 -->
-          <div class="flex items-start gap-3 bg-green-50 rounded-lg p-4">
-            <div
-              class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
-            >
-              <svg
-                class="w-5 h-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"
-                ></path>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h5 class="font-semibold text-gray-800 mb-1">
-                Great Heart Health
-              </h5>
-              <p class="text-sm text-gray-600">
-                Your heart rate is stable and within the healthy range. Keep up
-                your daily exercise routine!
-              </p>
-            </div>
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h5 class="font-semibold text-blue-900 mb-2">Great Heart Health</h5>
+            <p class="text-sm text-gray-600">
+              Your heart rate is stable and within the healthy range. Keep up your daily exercise!
+            </p>
           </div>
         </div>
       </div>
+    }
     </div>
 
-    <!-- Voice Prompt -->
-    <div class="text-center">
-      <p class="text-gray-500 italic">
-        💬 Say "Describe symptoms" or "Show records"
-      </p>
-    </div>
   </main>
+
+  <!-- Trend Modal -->
+  @if (selectedTrend()) {
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+      (click)="closeTrendModal()"
+    >
+      <div
+        class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        (click)="$event.stopPropagation()"
+      >
+        @if (getTrendData(selectedTrend()!); as trendData) {
+          <div class="p-6">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-2xl font-bold text-gray-900">
+                {{ trendData.title }}
+              </h3>
+              <button
+                (click)="closeTrendModal()"
+                class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <svg
+                  class="w-6 h-6 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Current Value -->
+            <div
+              class="mb-6 p-4 rounded-xl"
+              [ngClass]="{
+                'bg-blue-50': trendData.color === 'blue',
+                'bg-green-50': trendData.color === 'green',
+                'bg-yellow-50': trendData.color === 'yellow',
+                'bg-purple-50': trendData.color === 'purple'
+              }"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">Current Value</p>
+                  <p class="text-2xl font-bold text-gray-900">
+                    {{ trendData.current }}
+                    @if (trendData.unit) {
+                      <span class="text-lg text-gray-600">
+                        {{ trendData.unit }}
+                      </span>
+                    }
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-gray-600 mb-1">Status</p>
+                  <p
+                    class="text-lg font-semibold"
+                    [ngClass]="{
+                      'text-green-600': trendData.status === 'Normal' || trendData.status === 'Good',
+                      'text-yellow-600': trendData.status === 'Monitor' || trendData.status === 'Watch',
+                      'text-blue-600': trendData.status === 'Improving'
+                    }"
+                  >
+                    {{ trendData.status }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trend Chart -->
+            <div class="mb-6">
+              <div class="flex items-center justify-between mb-4">
+                <h4 class="text-lg font-semibold text-gray-800">7-Day Trend</h4>
+                <span
+                  class="text-sm font-medium"
+                  [ngClass]="{
+                    'text-green-600': trendData.change.includes('-') || trendData.change === 'Stable',
+                    'text-red-600': trendData.change.includes('+')
+                  }"
+                >
+                  @if (trendData.change.includes('%')) {
+                    {{ trendData.change }} from last week
+                  } @else {
+                    {{ trendData.change }}
+                  }
+                </span>
+              </div>
+              <div class="flex items-end gap-2 h-48 bg-gray-50 rounded-lg p-4">
+                @for (
+                  item of trendData.data;
+                  track $index;
+                  let i = $index
+                ) {
+                  <div class="flex-1 flex flex-col items-center">
+                    <div
+                      class="w-full rounded-t transition-all hover:opacity-80 cursor-pointer"
+                      [ngClass]="{
+                        'bg-blue-400': trendData.color === 'blue',
+                        'bg-green-400': trendData.color === 'green',
+                        'bg-yellow-400': trendData.color === 'yellow',
+                        'bg-purple-400': trendData.color === 'purple'
+                      }"
+                      [style.height.%]="getHeightPercent(item, trendData.data)"
+                      [title]="item"
+                    ></div>
+                    <span class="text-xs text-gray-500 mt-2">
+                      {{ trendData.labels[i] }}
+                    </span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-3">
+              <button
+                class="flex-1 bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-green-700 transition-colors font-medium"
+              >
+                View Full History
+              </button>
+              <button
+                (click)="closeTrendModal()"
+                class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
 
   <!-- Sidebar Overlay -->
   <div

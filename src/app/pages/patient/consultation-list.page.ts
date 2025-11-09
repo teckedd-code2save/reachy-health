@@ -8,37 +8,37 @@ import { ConsultationService } from '../../services/consultation.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       <!-- Header -->
-      <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4">
-          <div
-            class="rounded-lg shadow-lg p-2 md:p-3 flex items-center justify-between"
-          >
-            <button
-              (click)="goBack()"
-              class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <svg
-                class="w-6 h-6 text-gray-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+      <header class="bg-white/70 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <button
+                (click)="goBack()"
+                class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-            <h1 class="text-xl font-medium md:text-2xl text-blue-500">
-              My Consultations
-            </h1>
+                <svg
+                  class="w-6 h-6 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <h1 class="text-2xl md:text-3xl font-semibold text-blue-600">
+                My Consultations
+              </h1>
+            </div>
             <button
               (click)="createNewConsultation()"
-              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+              class="bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-green-700 transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
             >
               <svg
                 class="w-5 h-5 mr-2"
@@ -153,25 +153,25 @@ import { ConsultationService } from '../../services/consultation.service';
             @for (consultation of consultations(); track consultation.id) {
               <div
                 (click)="viewConsultation(consultation.id)"
-                class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer overflow-hidden"
+                class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden border border-gray-200 hover:border-blue-600 transform hover:-translate-y-1"
               >
                 <!-- Card Header -->
-                <div class="p-4 border-b bg-gray-50">
+                <div class="p-4 border-b bg-blue-50">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-600"
-                      >ID: {{ consultation.id }}</span
+                    <span class="text-sm font-semibold text-blue-900"
+                      >Consultation #{{ consultation.id }}</span
                     >
-                    <span [class]="getStatusClass(consultation.status)">
+                    <span class="text-xs px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-medium">
                       {{ consultation.status }}
                     </span>
                   </div>
                 </div>
 
                 <!-- Card Content -->
-                <div class="p-4">
+                <div class="p-5">
                   <!-- Transcript Preview -->
-                  <div class="mb-3">
-                    <p class="text-sm text-gray-600 line-clamp-3">
+                  <div class="mb-4">
+                    <p class="text-sm text-gray-700 line-clamp-3 leading-relaxed">
                       {{ consultation.transcript || 'No description provided' }}
                     </p>
                   </div>
@@ -256,17 +256,17 @@ import { ConsultationService } from '../../services/consultation.service';
                 </div>
 
                 <!-- Card Footer -->
-                <div class="px-4 py-3 bg-gray-50 border-t">
+                <div class="px-5 py-4 bg-gray-50 border-t">
                   <button
                     (click)="
                       viewConsultation(consultation.id);
                       $event.stopPropagation()
                     "
-                    class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center"
+                    class="text-blue-600 hover:text-blue-900 text-sm font-semibold flex items-center gap-2 transition-colors"
                   >
                     View Details
                     <svg
-                      class="w-4 h-4 ml-1"
+                      class="w-4 h-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

@@ -344,9 +344,55 @@ import { takeUntil, switchMap } from 'rxjs/operators';
 
                 @if (consultation().audio_url) {
                   <div class="mt-4 pt-4 border-t">
-                    <span class="text-sm font-medium text-gray-700 block mb-2"
-                      >Audio Recording:</span
-                    >
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-sm font-medium text-gray-700"
+                        >Audio Recording:</span
+                      >
+                      <button
+                        (click)="transcribeAudio()"
+                        [disabled]="transcribing() || !consultation().audio_url"
+                        class="text-xs bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
+                      >
+                        @if (transcribing()) {
+                          <svg
+                            class="animate-spin h-3 w-3"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              class="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              stroke-width="4"
+                            ></circle>
+                            <path
+                              class="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Transcribing...
+                        } @else {
+                          <svg
+                            class="w-3 h-3"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                            />
+                          </svg>
+                          Transcribe Audio
+                        }
+                      </button>
+                    </div>
                     <audio controls class="w-full">
                       <source
                         [src]="consultation().audio_url"
@@ -354,6 +400,13 @@ import { takeUntil, switchMap } from 'rxjs/operators';
                       />
                       Your browser does not support audio playback.
                     </audio>
+                    @if (transcriptionError()) {
+                      <div
+                        class="mt-2 bg-red-50 border border-red-200 rounded-lg p-2 text-xs text-red-700"
+                      >
+                        {{ transcriptionError() }}
+                      </div>
+                    }
                   </div>
                 }
               </div>
@@ -939,6 +992,8 @@ export class ConsultationDetailPage implements OnInit, OnDestroy {
   loadingSummary = signal(false);
   summaryError = signal('');
   selectedFiles = signal<File[]>([]);
+  transcribing = signal(false);
+  transcriptionError = signal('');
 
   // Regular property for two-way binding
   newMessageText = '';
@@ -1109,6 +1164,42 @@ export class ConsultationDetailPage implements OnInit, OnDestroy {
         );
         console.error('Failed to generate summary:', error);
         this.loadingSummary.set(false);
+      },
+    });
+  }
+
+  /**
+   * Transcribe audio for this consultation
+   */
+  transcribeAudio() {
+    const id = this.consultationId();
+    if (!id) return;
+
+    const consultation = this.consultation();
+    if (!consultation?.audio_url) {
+      this.transcriptionError.set('No audio recording available for transcription');
+      return;
+    }
+
+    this.transcribing.set(true);
+    this.transcriptionError.set('');
+
+    this.consultationService.transcribeConsultation(id).subscribe({
+      next: (result) => {
+        if (result.transcript) {
+          // Reload consultation to get updated transcript
+          this.loadConsultation();
+        }
+        this.transcribing.set(false);
+      },
+      error: (error: any) => {
+        this.transcriptionError.set(
+          error?.error?.detail ||
+            error?.message ||
+            'Failed to transcribe audio. Please try again.',
+        );
+        console.error('Failed to transcribe audio:', error);
+        this.transcribing.set(false);
       },
     });
   }

@@ -1,12 +1,13 @@
-<div class="lex flex-col items-center justify-center py-20 items-center">
+<div class="flex flex-col items-center justify-center py-20">
+  <!-- SVG Background with Waves and Microphone (Clickable Button) -->
   <button
-    (click)="toggleListening()"
+     (click)="toggleListening()"
     [class.pulse]="isListening"
     [class.bg-red-500]="isListening"
     [class.bg-gray-400]="!isListening"
     class="bg-transparent border-none p-0 cursor-pointer focus:outline-none transition-transform hover:scale-105"
   >
-     <svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" class="w-full max-w-2xl">
+    <svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" class="w-full max-w-2xl">
     <defs>
       <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="#FDE1E4" />
@@ -64,9 +65,11 @@
   </svg>
   </button>
 
-  <p class="mt-4 text-sm text-gray-600">
-    {{ isListening ? "Listening..." : "Tap to speak" }}
+  <!-- Status Text -->
+  <p class="mt-8 text-lg font-medium text-gray-700">
+    {{ isListening ? "🎤 Listening..." : "🎧 Tap to speak" }}
   </p>
+
   <!-- Animated Waves Below (when listening) -->
   @if (isListening) {
     <div class="mt-8 flex items-end justify-center gap-2 h-16">
@@ -94,9 +97,17 @@
     </style>
   }
 
+  <!-- Transcript Display -->
   @if (transcript) {
-    <div class="mt-4 p-4 bg-gray-100 rounded-lg max-w-md">
-      <p class="text-gray-800">{{ transcript }}</p>
+    <div class="mt-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg max-w-2xl border border-blue-200 shadow-md">
+      <p class="text-gray-800 text-center leading-relaxed">{{ transcript }}</p>
     </div>
   }
 </div>
+
+<style>
+  /* Button click handler - add to component TS */
+  button {
+    cursor: pointer;
+  }
+</style>

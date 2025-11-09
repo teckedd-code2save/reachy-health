@@ -178,4 +178,56 @@ export class ConsultationService {
         }),
       );
   }
+
+  /**
+   * Transcribe audio for a consultation using Whisper model
+   */
+  transcribeConsultation(consultationId: number): Observable<{
+    message: string;
+    transcript: string;
+    consultation_id: number;
+  }> {
+    return this.http
+      .post<{
+        message: string;
+        transcript: string;
+        consultation_id: number;
+      }>(`${this.apiUrl}/${consultationId}/transcribe`, {})
+      .pipe(
+        catchError((error) => {
+          console.error('Failed to transcribe consultation:', error);
+          return throwError(() => error);
+        }),
+      );
+  }
+
+  /**
+   * Standalone transcription endpoint for audio files
+   * Used for landing page voice transcription and language detection
+   */
+  transcribeAudio(
+    audioFile: File,
+    detectLanguage: boolean = false,
+  ): Observable<{
+    transcript: string;
+    text: string;
+    detected_language?: string;
+  }> {
+    const formData = new FormData();
+    formData.append('audio', audioFile);
+    formData.append('detect_language', detectLanguage.toString());
+
+    return this.http
+      .post<{
+        transcript: string;
+        text: string;
+        detected_language?: string;
+      }>(`${environment.apiUrl}/consultations/transcribe`, formData)
+      .pipe(
+        catchError((error) => {
+          console.error('Failed to transcribe audio:', error);
+          return throwError(() => error);
+        }),
+      );
+  }
 }
